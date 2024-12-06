@@ -20,7 +20,7 @@ body {
 
 /* Conteneur principal */
 .container {
-	max-width: 1200px;
+	max-width: 1400px;
 	margin: 0 auto;
 	padding: 1rem;
 }
@@ -64,7 +64,7 @@ header {
 .navbar-menu {
 	list-style: none;
 	display: flex;
-	gap: 1.5rem;
+	gap: 12px;
 }
 
 .menu-item a {

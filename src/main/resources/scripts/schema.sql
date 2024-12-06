@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS jeux_genres CASCADE;
 DROP TABLE IF EXISTS genres CASCADE;
 DROP TABLE IF EXISTS jeux CASCADE;
 DROP TABLE IF EXISTS clients CASCADE;
+DROP TABLE IF EXISTS locations CASCADE;
 
 -- Création de la table clients
 CREATE TABLE clients (
@@ -55,3 +56,14 @@ CREATE TABLE exemplaires_jeux (
     jeu_id INT NOT NULL,
     FOREIGN KEY (jeu_id) REFERENCES jeux(id) ON DELETE CASCADE
 );
+
+-- Création de la table locations
+CREATE TABLE locations (
+    id SERIAL PRIMARY KEY,
+    exemplaire_id INT NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE,
+    retour BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (exemplaire_id) REFERENCES exemplaires_jeux(id) ON DELETE CASCADE
+);
+

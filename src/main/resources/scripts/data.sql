@@ -61,3 +61,15 @@ INSERT INTO exemplaires_jeux (code_barre, louable, jeu_id) VALUES
 ('EX012', TRUE, 8), -- Exemplaire pour Twister
 ('EX013', TRUE, 9), -- Exemplaire pour Dixit
 ('EX014', TRUE, 10), ('EX015', FALSE, 10); -- Exemplaires pour Pandemic
+
+-- Insertion de données fictives dans la table locations
+INSERT INTO locations (exemplaire_id, date_debut, date_fin, retour) VALUES
+(1, '2024-12-01', '2024-12-05', TRUE),  -- Location pour un exemplaire de Monopoly
+(2, '2024-12-02', '2024-12-06', TRUE),  -- Location pour un autre exemplaire de Monopoly
+(3, '2024-12-03', '2024-12-07', FALSE), -- Location en cours pour un exemplaire de Catan
+(5, '2024-12-04', NULL, FALSE),         -- Location ouverte pour un exemplaire de Uno
+(6, '2024-11-28', '2024-12-02', TRUE),  -- Location terminée pour un exemplaire de Risk
+(9, '2024-12-03', '2024-12-10', FALSE), -- Location pour un exemplaire de Cluedo
+(11, '2024-12-04', NULL, FALSE),        -- Location ouverte pour Carcassonne
+(13, '2024-12-05', NULL, FALSE),        -- Location ouverte pour Dixit
+(15, '2024-11-30', '2024-12-04', TRUE); -- Location terminée pour Pandemic
