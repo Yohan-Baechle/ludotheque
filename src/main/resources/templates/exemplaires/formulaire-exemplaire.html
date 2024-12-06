@@ -1,0 +1,41 @@
+<div th:fragment="content">
+	<div class="container">
+		<h2
+			th:text="${exemplaire.id == null ? 'Ajouter un exemplaire' : 'Modifier l''exemplaire'}"></h2>
+
+
+
+		<form th:action="@{/exemplaires/enregistrer}"
+			th:object="${exemplaire}" method="post">
+			<input type="hidden" name="id" th:if="${exemplaire.id != null}"
+				th:field="*{id}">
+
+			<div class="form-group">
+				<label for="codeBarre">Code-barre *</label> <input type="text"
+					id="codeBarre" name="codeBarre" class="form-control"
+					th:field="*{codeBarre}"> <span class="error"
+					th:if="${#fields.hasErrors('codeBarre')}" th:errors="*{codeBarre}"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="louable">Louable</label> <input type="checkbox"
+					id="louable" name="louable" th:field="*{louable}">
+			</div>
+
+			<div class="form-group">
+				<label for="jeu">Jeu associé *</label> <select id="jeu" name="jeu"
+					class="form-control" th:field="*{jeu}">
+					<option th:each="jeu : ${jeux}" th:value="${jeu.id}"
+						th:text="${jeu.titre}"></option>
+				</select> <span class="error" th:if="${#fields.hasErrors('jeu')}"
+					th:errors="*{jeu}"></span>
+			</div>
+
+
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+				<a href="/exemplaires" class="btn btn-secondary">Annuler</a>
+			</div>
+		</form>
+	</div>
+</div>

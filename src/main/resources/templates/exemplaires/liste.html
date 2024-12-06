@@ -1,0 +1,29 @@
+<div th:fragment="content">
+	<div class="container">
+		<h2>Liste des exemplaires</h2>
+		<a href="/exemplaires/ajouter" class="btn btn-primary">Ajouter un
+			exemplaire</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Code-barre</th>
+					<th>Jeu</th>
+					<th>Statut</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="exemplaire : ${exemplaires}">
+					<td th:text="${exemplaire.codeBarre}"></td>
+					<td th:text="${exemplaire.jeu.titre}"></td>
+					<td th:text="${exemplaire.louable ? 'Louable' : 'Non louable'}"></td>
+					<td><a th:href="@{/exemplaires/modifier(id=${exemplaire.id})}"
+						class="action-btn edit">Modifier</a> <a
+						th:href="@{/exemplaires/supprimer/{id}(id=${exemplaire.id})}"
+						class="action-btn delete">Supprimer</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

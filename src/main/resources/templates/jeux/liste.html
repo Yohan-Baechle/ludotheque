@@ -1,0 +1,52 @@
+<div th:fragment="content">
+    <div class="container">
+        <h2>Liste des jeux</h2>
+        <a href="/jeux/ajouter" class="btn btn-primary">Ajouter un jeu</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Référence</th>
+                    <th>Description</th>
+                    <th>Tarif Journée</th>
+                    <th>Âge Minimum</th>
+                    <th>Durée (min)</th>
+                    <th>Genres</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="jeu : ${jeux}">
+                    <td th:text="${jeu.titre}"></td>
+                    <td th:text="${jeu.reference}"></td>
+                    <td th:text="${jeu.description}"></td>
+                    <td th:text="${jeu.tarifJournee}"></td>
+                    <td th:text="${jeu.ageMin}"></td>
+                    <td th:text="${jeu.duree}"></td>
+                    <td>
+                        <!-- Vérifie si des genres existent pour le jeu -->
+                        <span th:if="${!#lists.isEmpty(jeu.genres)}">
+                            <span th:each="genre, iterStat : ${jeu.genres}">
+                                <span th:text="${genre.libelle}"></span>
+                                <!-- Ajoute une virgule sauf pour le dernier genre -->
+                                <span th:if="${!iterStat.last}">, </span>
+                            </span>
+                        </span>
+                        <!-- Si aucun genre, affiche "Aucun genre" -->
+                        <span th:if="${#lists.isEmpty(jeu.genres)}">Aucun genre</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/jeux/modifier(id=${jeu.id})}" class="action-btn edit">Modifier</a>
+                        <a th:href="@{/jeux/supprimer/{id}(id=${jeu.id})}" class="action-btn delete">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Ajoutez ceci temporairement pour déboguer -->
+<p th:each="jeu : ${jeux}">
+    <b th:text="${jeu.titre}"></b> : 
+    <span th:each="genre : ${jeu.genres}" th:text="${genre.libelle}"></span>
+</p>
+    </div>
+</div>

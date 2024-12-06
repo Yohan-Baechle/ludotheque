@@ -1,0 +1,34 @@
+<div th:fragment="content">
+	<div class="container">
+		<h2>Liste des clients</h2>
+		<a href="/clients/ajouter" class="btn btn-primary">Ajouter un
+			client</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Email</th>
+					<th>Téléphone</th>
+					<th>Adresse</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="client : ${clients}">
+					<td th:text="${client.nom}"></td>
+					<td th:text="${client.prenom}"></td>
+					<td th:text="${client.email}"></td>
+					<td th:text="${client.noTelephone}"></td>
+					<td><span th:text="${client.rue}"></span>, <span
+						th:text="${client.codePostal}"></span> <span
+						th:text="${client.ville}"></span></td>
+					<td><a th:href="@{/clients/modifier(id=${client.id})}"
+						class="action-btn edit">Modifier</a> <a
+						th:href="@{/clients/supprimer/{id}(id=${client.id})}"
+						class="action-btn delete">Supprimer</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,55 @@
+<div th:fragment="content">
+    <div class="container">
+        <h2 th:text="${client.id == null ? 'Ajouter un client' : 'Modifier le client'}"></h2>
+        <form th:action="@{/clients/enregistrer}" th:object="${client}" method="post">
+            <input type="hidden" name="id" th:if="${client.id != null}" th:field="*{id}">
+
+            <div class="form-group">
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" class="form-control" th:field="*{nom}">
+                <span class="error" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" class="form-control" th:field="*{prenom}">
+                <span class="error" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" class="form-control" th:field="*{email}">
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="noTelephone">Téléphone</label>
+                <input type="tel" id="noTelephone" name="noTelephone" class="form-control" th:field="*{noTelephone}">
+                <span class="error" th:if="${#fields.hasErrors('noTelephone')}" th:errors="*{noTelephone}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="rue">Rue *</label>
+                <input type="text" id="rue" name="rue" class="form-control" th:field="*{rue}">
+                <span class="error" th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="codePostal">Code postal *</label>
+                <input type="text" id="codePostal" name="codePostal" class="form-control" th:field="*{codePostal}">
+                <span class="error" th:if="${#fields.hasErrors('codePostal')}" th:errors="*{codePostal}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="ville">Ville *</label>
+                <input type="text" id="ville" name="ville" class="form-control" th:field="*{ville}">
+                <span class="error" th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a href="/clients" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>

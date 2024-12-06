@@ -1,0 +1,24 @@
+<div th:fragment="content">
+	<div class="container">
+		<h2
+			th:text="${genre.id == null ? 'Ajouter un genre' : 'Modifier le genre'}"></h2>
+		<form th:action="@{/genres/enregistrer}" th:object="${genre}"
+			method="post">
+
+			<input type="hidden" name="id" th:if="${genre.id != null}"
+				th:field="*{id}">
+
+			<div class="form-group">
+				<label for="libelle">Libellé *</label> <input type="text"
+					id="libelle" name="libelle" class="form-control"
+					th:field="*{libelle}"> <span class="error"
+					th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}"></span>
+			</div>
+
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+				<a href="/genres" class="btn btn-secondary">Annuler</a>
+			</div>
+		</form>
+	</div>
+</div>
