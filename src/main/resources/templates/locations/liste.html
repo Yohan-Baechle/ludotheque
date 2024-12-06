@@ -1,0 +1,38 @@
+<div th:fragment="content">
+	<div class="container">
+		<h2>Liste des locations</h2>
+		<a href="/locations/ajouter" class="btn btn-primary">Ajouter une
+			location</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Exemplaire</th>
+					<th>Date début</th>
+					<th>Date fin</th>
+					<th>Prix total</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="location : ${locations}">
+					<td
+						th:text="${location.exemplaire != null ? location.exemplaire.codeBarre : 'Non défini'}"></td>
+					<td
+						th:text="${location.dateDebut != null ? location.dateDebut : 'Non défini'}"></td>
+					<td
+						th:text="${location.dateFin != null ? location.dateFin : 'En cours'}"></td>
+					<td
+						th:text="${location.prixTotal != null ? location.prixTotal + ' €' : 'Calcul en attente'}"></td>
+
+					<td><a
+						th:href="@{/locations/modifier/{id}(id=${location.id})}"
+						class="action-btn edit">Modifier</a> <a
+						th:href="@{/locations/supprimer/{id}(id=${location.id})}"
+						class="action-btn delete"
+						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

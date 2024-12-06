@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ludotheque.bo.ExemplaireJeu;
-import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.dal.ExemplaireJeuRepository;
 
 @Service

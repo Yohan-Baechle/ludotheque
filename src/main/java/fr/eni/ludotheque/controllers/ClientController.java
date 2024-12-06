@@ -16,6 +16,9 @@ import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.services.ClientService;
 import jakarta.validation.Valid;
 
+/**
+ * Contrôleur pour gérer les opérations CRUD liées aux clients.
+ */
 @Controller
 @RequestMapping("/clients")
 public class ClientController {
@@ -26,62 +29,81 @@ public class ClientController {
 		this.clientService = clientService;
 	}
 
-	/*
-	 * Afficher la liste des clients
+	/**
+	 * Affiche la liste de tous les clients.
+	 *
+	 * @param model Le modèle pour passer les données à la vue.
+	 * @return Le nom de la vue à afficher.
 	 */
 	@GetMapping
-	public String clients(Model model) {
+	public String afficherListeClients(Model model) {
 		List<Client> clients = clientService.findAll();
 		model.addAttribute("clients", clients);
 		model.addAttribute("body", "clients/liste");
 		return "index";
 	}
 
-	/*
-	 * Afficher le formulaire pour ajouter un client
+	/**
+	 * Affiche le formulaire d'ajout d'un nouveau client.
+	 *
+	 * @param model Le modèle pour passer les données à la vue.
+	 * @return Le nom de la vue à afficher.
 	 */
 	@GetMapping("/ajouter")
-	public String pageAjouterClient(Model model) {
+	public String afficherFormulaireAjoutClient(Model model) {
 		model.addAttribute("client", new Client());
 		model.addAttribute("body", "clients/formulaire-client");
 		return "index";
 	}
 
-	/*
-	 * Enregistrer un nouveau client
+	/**
+	 * Enregistre un nouveau client ou met à jour un client existant.
+	 *
+	 * @param model         Le modèle pour passer les données à la vue.
+	 * @param client        L'objet client soumis par le formulaire.
+	 * @param bindingResult Le résultat de la validation du formulaire.
+	 * @return La redirection vers la liste des clients si l'enregistrement réussit,
+	 *         ou le formulaire si des erreurs sont présentes.
 	 */
 	@PostMapping("/enregistrer")
-	public String ajouterClient(Model model, @Valid Client client, BindingResult bindingResult) {
-		model.addAttribute("body", "clients/formulaire-client");
+	public String enregistrerClient(Model model, @Valid Client client, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("body", "clients/formulaire-client");
 			return "index";
 		}
-		clientService.save(client);
+		clientService.saveOrUpdate(client);
 		return "redirect:/clients";
 	}
 
-	/*
-	 * Afficher le formulaire pour modifier un client
+	/**
+	 * Affiche le formulaire de modification d'un client existant.
+	 *
+	 * @param model Le modèle pour passer les données à la vue.
+	 * @param id    L'identifiant du client à modifier.
+	 * @return Le nom de la vue à afficher.
 	 */
 	@GetMapping("/modifier")
-	public String getModifierClient(Model model, @RequestParam("id") int id) {
+	public String afficherFormulaireModificationClient(Model model, @RequestParam("id") int id) {
 		Optional<Client> clientOpt = clientService.findById(id);
 		if (clientOpt.isPresent()) {
 			model.addAttribute("client", clientOpt.get());
 			model.addAttribute("body", "clients/formulaire-client");
+			return "index";
 		} else {
-			// Gestion de l'erreur : client non trouvé
 			model.addAttribute("errorMessage", "Client introuvable.");
-			model.addAttribute("body", "clients/clients");
+			model.addAttribute("body", "clients/liste");
+			return "index";
 		}
-		return "index";
 	}
 
-	/*
-	 * Supprimer un client
+	/**
+	 * Supprime un client existant.
+	 *
+	 * @param id L'identifiant du client à supprimer.
+	 * @return La redirection vers la liste des clients après la suppression.
 	 */
 	@GetMapping("/supprimer/{id}")
-	public String supprimerClient(@PathVariable("id") int id) {
+	public String supprimerClientParId(@PathVariable("id") int id) {
 		clientService.delete(id);
 		return "redirect:/clients";
 	}

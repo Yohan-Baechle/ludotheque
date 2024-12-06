@@ -3,6 +3,8 @@ package fr.eni.ludotheque.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,75 +16,107 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.services.GenreService;
+import fr.eni.ludotheque.exceptions.GenreNotFoundException;
 import jakarta.validation.Valid;
 
+/**
+ * Contrôleur pour gérer les opérations CRUD liées aux genres.
+ */
 @Controller
 @RequestMapping("/genres")
 public class GenreController {
 
-	private final GenreService genreService;
+    private static final Logger logger = LoggerFactory.getLogger(GenreController.class);
 
-	public GenreController(GenreService genreService) {
-		this.genreService = genreService;
-	}
+    private final GenreService genreService;
 
-	/*
-	 * Afficher la liste des genres
-	 */
-	@GetMapping
-	public String genres(Model model) {
-		List<Genre> genres = genreService.findAll();
-		model.addAttribute("genres", genres);
-		model.addAttribute("body", "genres/liste");
-		return "index";
-	}
+    public GenreController(GenreService genreService) {
+        this.genreService = genreService;
+    }
 
-	/*
-	 * Afficher le formulaire pour ajouter un genre
-	 */
-	@GetMapping("/ajouter")
-	public String pageAjouterGenre(Model model) {
-		model.addAttribute("genre", new Genre());
-		model.addAttribute("body", "genres/formulaire-genre");
-		return "index";
-	}
+    /**
+     * Affiche la liste de tous les genres.
+     *
+     * @param model Le modèle pour passer les données à la vue.
+     * @return Le nom de la vue à afficher.
+     */
+    @GetMapping
+    public String afficherListeGenres(Model model) {
+        List<Genre> genres = genreService.findAll();
+        model.addAttribute("genres", genres);
+        model.addAttribute("body", "genres/liste");
+        return "index";
+    }
 
-	/*
-	 * Enregistrer un nouveau genre
-	 */
-	@PostMapping("/enregistrer")
-	public String ajouterGenre(Model model, @Valid Genre genre, BindingResult bindingResult) {
-		model.addAttribute("body", "genres/formulaire-genre");
-		if (bindingResult.hasErrors()) {
-			return "index";
-		}
-		genreService.save(genre);
-		return "redirect:/genres";
-	}
+    /**
+     * Affiche le formulaire d'ajout d'un nouveau genre.
+     *
+     * @param model Le modèle pour passer les données à la vue.
+     * @return Le nom de la vue à afficher.
+     */
+    @GetMapping("/ajouter")
+    public String afficherFormulaireAjoutGenre(Model model) {
+        model.addAttribute("genre", new Genre());
+        model.addAttribute("body", "genres/formulaire-genre");
+        return "index";
+    }
 
-	/*
-	 * Afficher le formulaire pour modifier un genre
-	 */
-	@GetMapping("/modifier")
-	public String getModifierGenre(Model model, @RequestParam("id") int id) {
-		Optional<Genre> genreOpt = genreService.findById(id);
-		if (genreOpt.isPresent()) {
-			model.addAttribute("genre", genreOpt.get());
-			model.addAttribute("body", "genres/formulaire-genre");
-		} else {
-			// Gestion de l'erreur : genre non trouvé
-			model.addAttribute("errorMessage", "Genre introuvable.");
-			model.addAttribute("body", "genres/genres");
-		}
-		return "index";
-	}
+    /**
+     * Enregistre un nouveau genre ou met à jour un genre existant.
+     *
+     * @param model         Le modèle pour passer les données à la vue.
+     * @param genre         L'objet genre soumis par le formulaire.
+     * @param bindingResult Le résultat de la validation du formulaire.
+     * @return La redirection vers la liste des genres si l'enregistrement réussit,
+     *         ou le formulaire si des erreurs sont présentes.
+     */
+    @PostMapping("/enregistrer")
+    public String enregistrerGenre(Model model, @Valid Genre genre, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("body", "genres/formulaire-genre");
+            return "index";
+        }
+        genreService.saveOrUpdate(genre);
+        logger.info("Genre créé ou mis à jour : {}", genre);
+        return "redirect:/genres";
+    }
 
-	/*
-	 * Supprimer un genre
-	 */
-	@GetMapping("/supprimer/{id}")
-	public String supprimerGenre(@PathVariable("id") int id) {
-		genreService.delete(id);
-		return "redirect:/genres";
-	}
+    /**
+     * Affiche le formulaire de modification d'un genre existant.
+     *
+     * @param model Le modèle pour passer les données à la vue.
+     * @param id    L'identifiant du genre à modifier.
+     * @return Le nom de la vue à afficher.
+     */
+    @GetMapping("/modifier")
+    public String afficherFormulaireModificationGenre(Model model, @RequestParam("id") int id) {
+        Optional<Genre> genreOpt = genreService.findById(id);
+        if (genreOpt.isPresent()) {
+            model.addAttribute("genre", genreOpt.get());
+            model.addAttribute("body", "genres/formulaire-genre");
+            return "index";
+        } else {
+            model.addAttribute("errorMessage", "Genre introuvable.");
+            model.addAttribute("body", "genres/liste");
+            logger.error("Genre non trouvé, ID : {}", id);
+            return "index";
+        }
+    }
+
+    /**
+     * Supprime un genre existant.
+     *
+     * @param id L'identifiant du genre à supprimer.
+     * @return La redirection vers la liste des genres après la suppression.
+     */
+    @GetMapping("/supprimer/{id}")
+    public String supprimerGenreParId(@PathVariable("id") int id) {
+        try {
+            genreService.delete(id);
+            logger.info("Genre supprimé, ID : {}", id);
+        } catch (GenreNotFoundException e) {
+            logger.error("Erreur lors de la suppression du genre, ID : {}", id, e);
+        }
+        return "redirect:/genres";
+    }
 }
