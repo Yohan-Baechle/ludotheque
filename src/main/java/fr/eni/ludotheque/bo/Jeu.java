@@ -21,7 +21,6 @@ public class Jeu {
 	@Size(min = 3, max = 50, message = "La référence doit contenir entre 3 et 50 caractères.")
 	private String reference;
 
-	@NotBlank(message = "La description est obligatoire.")
 	@Size(max = 500, message = "La description ne doit pas dépasser 500 caractères.")
 	private String description;
 

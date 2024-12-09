@@ -51,7 +51,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="genres">Genres *</label><select th:field="*{genres}"
+				<label for="genres">Genres</label><select th:field="*{genres}"
 					multiple size="5">
 					<option th:each="genre : ${@genreService.findAll()}"
 						th:value="${genre.id}" th:text="${genre.libelle}"></option>

@@ -25,7 +25,7 @@
 						th:text="${location.prixTotal != null ? location.prixTotal + ' €' : 'Calcul en attente'}"></td>
 
 					<td><a
-						th:href="@{/locations/modifier/{id}(id=${location.id})}"
+						th:href="@{/locations/modifier(id=${location.id})}"
 						class="action-btn edit">Modifier</a> <a
 						th:href="@{/locations/supprimer/{id}(id=${location.id})}"
 						class="action-btn delete"

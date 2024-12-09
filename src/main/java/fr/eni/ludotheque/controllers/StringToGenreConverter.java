@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import fr.eni.ludotheque.bll.GenreService;
 import fr.eni.ludotheque.bo.Genre;
-import fr.eni.ludotheque.services.GenreService;
 
 @Component
 public class StringToGenreConverter implements Converter<String, Genre> {

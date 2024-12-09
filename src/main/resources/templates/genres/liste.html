@@ -1,23 +1,25 @@
 <div th:fragment="content">
-    <div class="container">
-        <h2>Liste des genres</h2>
-        <a href="/genres/ajouter" class="btn btn-primary">Ajouter un genre</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Libellé</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="genre : ${genres}">
-                    <td th:text="${genre.libelle}"></td>
-                    <td>
-                        <a th:href="@{/genres/modifier(id=${genre.id})}" class="action-btn edit">Modifier</a>
-                        <a th:href="@{/genres/supprimer/{id}(id=${genre.id})}" class="action-btn delete">Supprimer</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<div class="container">
+		<h2>Liste des genres</h2>
+		<a href="/genres/ajouter" class="btn btn-primary">Ajouter un genre</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Libellé</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="genre : ${genres}">
+					<td th:text="${genre.libelle}"></td>
+					<td><a th:href="@{/genres/modifier(id=${genre.id})}"
+						class="action-btn edit">Modifier</a> <a
+						th:href="@{/genres/supprimer/{id}(id=${genre.id})}"
+						class="action-btn delete"
+						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

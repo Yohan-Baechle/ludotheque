@@ -1,4 +1,4 @@
-package fr.eni.ludotheque.services;
+package fr.eni.ludotheque.bll;
 
 import fr.eni.ludotheque.bo.Location;
 import fr.eni.ludotheque.dal.LocationRepository;
@@ -19,7 +19,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void add(Location location) {
+    public void create(Location location) {
         locationRepository.add(location);
     }
 
@@ -30,12 +30,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Optional<Location> findById(int id) {
-        return locationRepository.findById(id);
-    }
-
-    @Override
-    public void update(Location location) {
-        locationRepository.update(location);
+        return locationRepository.findById(id); // Retourne un Optional<Location> comme attendu
     }
 
     @Override
@@ -43,23 +38,20 @@ public class LocationServiceImpl implements LocationService {
         locationRepository.delete(id);
     }
 
-	@Override
-	public void save(Location location) {
-		if (location.getId() == null) {
-			this.add(location);
-		} else {
-			this.update(location);
-		}
-	}
-
-	@Override
-	public double calculerPrixTotal(LocalDate dateDebut, LocalDate dateFin, double tarifJournalier) {
-	    if (dateDebut == null || tarifJournalier <= 0) {
-	        return 0.0;
-	    }
-	    long jours = (dateFin != null)
-	                 ? ChronoUnit.DAYS.between(dateDebut, dateFin)
-	                 : ChronoUnit.DAYS.between(dateDebut, LocalDate.now());
-	    return Math.max(jours, 1) * tarifJournalier; // Minimum d'un jour
-	}
+    @Override
+    public void saveOrUpdate(Location location) {
+        if (location.getId() == null) {
+            this.create(location);  // Si l'ID est nul, ajout du lieu
+        } else {
+            this.saveOrUpdate(location);  // Si l'ID existe, mise à jour du lieu
+        }
+    }
+    
+    @Override
+    public double calculerPrixTotal(LocalDate dateDebut, LocalDate dateFin, double tarifJournalier) {
+        long jours = dateFin != null 
+                     ? ChronoUnit.DAYS.between(dateDebut, dateFin) 
+                     : ChronoUnit.DAYS.between(dateDebut, LocalDate.now());
+        return jours * tarifJournalier;
+    }
 }

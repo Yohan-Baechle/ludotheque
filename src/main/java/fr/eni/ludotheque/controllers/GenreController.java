@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.eni.ludotheque.bll.GenreService;
 import fr.eni.ludotheque.bo.Genre;
-import fr.eni.ludotheque.services.GenreService;
 import fr.eni.ludotheque.exceptions.GenreNotFoundException;
 import jakarta.validation.Valid;
 

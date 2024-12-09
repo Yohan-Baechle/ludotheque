@@ -1,29 +1,50 @@
 <div th:fragment="content">
-    <div class="container">
-        <h2 th:text="${location.id == null ? 'Ajouter une location' : 'Modifier la location'}"></h2>
-        <form th:action="@{/locations/enregistrer}" th:object="${location}" method="post">
-            <div class="form-group">
-                <label for="exemplaire">Exemplaire *</label>
-                <select id="exemplaire" th:field="*{exemplaire.id}" class="form-control">
-                    <option th:each="exemplaire : ${exemplaires}" th:value="${exemplaire.id}" th:text="${exemplaire.codeBarre}"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dateDebut">Date début *</label>
-                <input type="date" id="dateDebut" th:field="*{dateDebut}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="dateFin">Date fin</label>
-                <input type="date" id="dateFin" th:field="*{dateFin}" class="form-control">
-            </div>
-            <div class="form-check">
-                <input type="checkbox" id="retour" th:field="*{retour}" class="form-check-input">
-                <label class="form-check-label" for="retour">Retour</label>
-            </div>
-            <div class="form-actions mt-3">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                <a href="/locations" class="btn btn-secondary">Annuler</a>
-            </div>
-        </form>
-    </div>
+	<div class="container">
+		<h2
+			th:text="${location.id == null ? 'Ajouter une location' : 'Modifier la location'}"></h2>
+		<form th:action="@{/locations/enregistrer}" th:object="${location}"
+			method="post">
+			<!-- Champ caché pour l'ID -->
+			<input type="hidden" name="id" th:if="${location.id != null}"
+				th:field="*{id}">
+
+			<div class="form-group">
+				<label for="exemplaire">Exemplaire *</label> <select id="exemplaire"
+					name="exemplaire.id" class="form-control"
+					th:field="*{exemplaire.id}">
+					<option th:each="exemplaire : ${exemplaires}"
+						th:value="${exemplaire.id}" th:text="${exemplaire.codeBarre}"></option>
+				</select> <span class="error" th:if="${#fields.hasErrors('exemplaire.id')}"
+					th:errors="*{exemplaire.id}"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="dateDebut">Date début *</label> <input type="date"
+					id="dateDebut" name="dateDebut" class="form-control"
+					th:field="*{dateDebut}"> <span class="error"
+					th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="dateFin">Date fin</label> <input type="date"
+					id="dateFin" name="dateFin" class="form-control"
+					th:field="*{dateFin}"> <span class="error"
+					th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}"></span>
+			</div>
+
+
+			<div class="form-check">
+				<input type="checkbox" id="retour" name="retour"
+					class="form-check-input" th:field="*{retour}"> <label
+					class="form-check-label" for="retour">Retour</label> <span
+					class="error" th:if="${#fields.hasErrors('retour')}"
+					th:errors="*{retour}"></span>
+			</div>
+
+			<div class="form-actions mt-3">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+				<a href="/locations" class="btn btn-secondary">Annuler</a>
+			</div>
+		</form>
+	</div>
 </div>

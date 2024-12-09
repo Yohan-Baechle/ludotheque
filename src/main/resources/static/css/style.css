@@ -20,9 +20,9 @@ body {
 
 /* Conteneur principal */
 .container {
-	max-width: 1400px;
+	max-width: 1200px;
 	margin: 0 auto;
-	padding: 1rem;
+	padding: 1rem 0;
 }
 
 main {
@@ -30,6 +30,14 @@ main {
 }
 
 /* Styles pour les titres */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 4rem;
+}
+
 h2 {
 	font-size: 1.75rem;
 	margin-bottom: 1.5rem;
@@ -38,16 +46,18 @@ h2 {
 
 /* Styles pour la navbar (header) */
 header {
+	background-color: #343a40;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 
 .navbar {
+	max-width: 1200px;
+	margin:0 auto;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1rem 2rem;
-	background-color: #343a40;
+	padding: 1rem 0;
 	color: #fff;
 }
 
@@ -181,7 +191,6 @@ table a:hover {
 	background-color: #343a40;
 	color: #fff;
 	text-align: center;
-	padding: 1rem 0;
 	margin-top: auto;
 }
 

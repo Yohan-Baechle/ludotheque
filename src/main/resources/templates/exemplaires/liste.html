@@ -20,7 +20,8 @@
 					<td><a th:href="@{/exemplaires/modifier(id=${exemplaire.id})}"
 						class="action-btn edit">Modifier</a> <a
 						th:href="@{/exemplaires/supprimer/{id}(id=${exemplaire.id})}"
-						class="action-btn delete">Supprimer</a></td>
+						class="action-btn delete"
+						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a></td>
 				</tr>
 			</tbody>
 		</table>
