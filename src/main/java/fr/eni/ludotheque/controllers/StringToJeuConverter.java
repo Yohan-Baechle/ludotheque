@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import fr.eni.ludotheque.bll.JeuService;
 import fr.eni.ludotheque.bo.Jeu;
-import fr.eni.ludotheque.services.JeuService;
 
 @Component
 public class StringToJeuConverter implements Converter<String, Jeu> {

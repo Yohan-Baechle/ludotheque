@@ -1,4 +1,4 @@
-package fr.eni.ludotheque.services;
+package fr.eni.ludotheque.bll;
 
 import java.util.List;
 import java.util.Optional;

@@ -26,7 +26,9 @@
 					<td><a th:href="@{/clients/modifier(id=${client.id})}"
 						class="action-btn edit">Modifier</a> <a
 						th:href="@{/clients/supprimer/{id}(id=${client.id})}"
-						class="action-btn delete">Supprimer</a></td>
+						class="action-btn delete"
+						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

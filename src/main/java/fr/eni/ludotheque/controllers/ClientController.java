@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.eni.ludotheque.bll.ClientService;
 import fr.eni.ludotheque.bo.Client;
-import fr.eni.ludotheque.services.ClientService;
 import jakarta.validation.Valid;
 
 /**
