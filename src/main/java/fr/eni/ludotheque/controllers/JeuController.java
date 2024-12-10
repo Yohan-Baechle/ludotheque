@@ -42,6 +42,26 @@ public class JeuController {
         model.addAttribute("body", "jeux/liste");
         return "index";
     }
+    
+    /**
+     * Affiche les détails d'un jeu.
+     *
+     * @param id    L'identifiant du jeu.
+     * @param model Le modèle pour passer les données à la vue.
+     * @return Le nom de la vue à afficher.
+     */
+    @GetMapping("/detail/{id}")
+    public String afficherDetailJeu(@PathVariable("id") int id, Model model) {
+        Optional<Jeu> jeuOpt = jeuService.findById(id);
+        if (jeuOpt.isPresent()) {
+            model.addAttribute("jeu", jeuOpt.get());
+            model.addAttribute("body", "jeux/detail-jeu");
+            return "index";
+        } else {
+            model.addAttribute("errorMessage", "Jeu introuvable.");
+            return "redirect:/jeux";
+        }
+    }
 
     /**
      * Affiche le formulaire pour ajouter un nouveau jeu.

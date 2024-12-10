@@ -19,7 +19,6 @@
 				<tr th:each="jeu : ${jeux}">
 					<td th:text="${jeu.titre}"></td>
 					<td th:text="${jeu.reference}"></td>
-					<td th:text="${jeu.description}"></td>
 					<td th:text="${jeu.tarifJournee}"></td>
 					<td th:text="${jeu.ageMin}"></td>
 					<td th:text="${jeu.duree}"></td>
@@ -33,9 +32,10 @@
 					</span> <!-- Si aucun genre, affiche "Aucun genre" --> <span
 						th:if="${#lists.isEmpty(jeu.genres)}">Aucun genre</span>
 					</td>
-					<td><a th:href="@{/jeux/modifier(id=${jeu.id})}"
-						class="action-btn edit">Modifier</a> <a
-						th:href="@{/jeux/supprimer/{id}(id=${jeu.id})}"
+					<td><a th:href="@{/jeux/detail/{id}(id=${jeu.id})}"
+						class="action-btn detail">Détail</a> <a
+						th:href="@{/jeux/modifier(id=${jeu.id})}" class="action-btn edit">Modifier</a>
+						<a th:href="@{/jeux/supprimer/{id}(id=${jeu.id})}"
 						class="action-btn delete"
 						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
 					</td>

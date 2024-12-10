@@ -44,6 +44,26 @@ public class ClientController {
 	}
 
 	/**
+	 * Affiche les détails d'un client.
+	 *
+	 * @param id    L'identifiant du client.
+	 * @param model Le modèle pour passer les données à la vue.
+	 * @return Le nom de la vue à afficher.
+	 */
+	@GetMapping("/detail/{id}")
+	public String afficherDetailClient(@PathVariable("id") int id, Model model) {
+	    Optional<Client> clientOpt = clientService.findById(id);
+	    if (clientOpt.isPresent()) {
+	        model.addAttribute("client", clientOpt.get());
+	        model.addAttribute("body", "clients/detail-client");
+	        return "index";
+	    } else {
+	        model.addAttribute("errorMessage", "Client introuvable.");
+	        return "redirect:/clients";
+	    }
+	}
+
+	/**
 	 * Affiche le formulaire d'ajout d'un nouveau client.
 	 *
 	 * @param model Le modèle pour passer les données à la vue.
