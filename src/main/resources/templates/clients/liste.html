@@ -1,8 +1,7 @@
 <div th:fragment="content">
 	<div class="container">
 		<h2>Liste des clients</h2>
-		<a href="/clients/ajouter" class="btn btn-primary">Ajouter un
-			client</a>
+		<a href="/clients/ajouter" class="btn btn-primary">Ajouter un client</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -20,14 +19,15 @@
 					<td th:text="${client.prenom}"></td>
 					<td th:text="${client.email}"></td>
 					<td th:text="${client.noTelephone}"></td>
-					<td><span th:text="${client.rue}"></span>, <span
-						th:text="${client.codePostal}"></span> <span
-						th:text="${client.ville}"></span></td>
-					<td><a th:href="@{/clients/modifier(id=${client.id})}"
-						class="action-btn edit">Modifier</a> <a
-						th:href="@{/clients/supprimer/{id}(id=${client.id})}"
-						class="action-btn delete"
-						onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
+					<td>
+						<span th:text="${client.rue}"></span>, 
+						<span th:text="${client.codePostal}"></span> 
+						<span th:text="${client.ville}"></span>
+					</td>
+					<td>
+						<a th:href="@{/clients/detail/{id}(id=${client.id})}" class="action-btn detail">Détail</a>
+						<a th:href="@{/clients/modifier(id=${client.id})}" class="action-btn edit">Modifier</a>
+						<a th:href="@{/clients/supprimer/{id}(id=${client.id})}" class="action-btn delete" onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</a>
 					</td>
 				</tr>
 			</tbody>

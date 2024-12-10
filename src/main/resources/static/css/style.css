@@ -170,6 +170,14 @@ table a:hover {
 	text-decoration: none;
 }
 
+.action-btn.detail {
+	background-color: #17a2b8; /* Bleu clair pour le bouton "Détail" */
+}
+
+.action-btn.detail:hover {
+	background-color: #138496; /* Couleur plus sombre au survol */
+}
+
 .action-btn.edit {
 	background-color: #ffc107;
 }
