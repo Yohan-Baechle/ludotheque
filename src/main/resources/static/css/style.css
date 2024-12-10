@@ -29,6 +29,35 @@ main {
 	flex: 1;
 }
 
+/* Conteneur principal pour la page de connexion */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 1rem;
+}
+
+/* Carte pour le formulaire */
+.card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre discrète */
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Titre de la carte */
+.card-title {
+	text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 1rem 0;
+}
+
 /* Styles pour les titres */
 h1 {
     font-size: 2.5rem;
@@ -90,6 +119,42 @@ header {
 }
 
 /* Bouton d'ajout */
+/* Bouton Connexion */
+.btn-login {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton Déconnexion */
+.btn-logout {
+    background-color: #dc3545; 
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .btn {
 	display: inline-block;
 	font-weight: bold;

@@ -1,3 +1,13 @@
+-- Insertion des utilisateurs avec des mots de passe encodés
+INSERT INTO utilisateurs (id, username, password, enabled) VALUES
+(1, 'admin', '{bcrypt}$2a$10$.PLO3oejkvv0CIYJ41K6k.CbRgs3bYoIb18xqVNyXtvtccPhPNytm', true),  -- Mot de passe: admin123
+(2, 'employee', '{bcrypt}$2a$10$P5eZqammkZNjGYGdrbWxgOO7JF.5gLQ5UUxMK6aHNSYeDxvpAo/9G', true); -- Mot de passe: employee123
+
+-- Insertion des rôles pour chaque utilisateur
+INSERT INTO roles (utilisateur_id, role) VALUES
+(1, 'ROLE_ADMIN'),  -- Rôle admin pour admin
+(2, 'ROLE_EMPLOYEE'); -- Rôle employee pour employee
+
 -- Insertion de données fictives dans la table clients
 INSERT INTO clients (nom, prenom, email, no_telephone, rue, code_postal, ville) VALUES
 ('Dupont', 'Jean', 'jean.dupont@example.com', '0612345678', '10 Rue des Lilas', '75000', 'Paris'),
