@@ -1,10 +1,28 @@
 -- Suppression des tables de liaison et des genres, avec cascade
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS utilisateurs CASCADE;
 DROP TABLE IF EXISTS exemplaires_jeux CASCADE;
 DROP TABLE IF EXISTS jeux_genres CASCADE;
 DROP TABLE IF EXISTS genres CASCADE;
 DROP TABLE IF EXISTS jeux CASCADE;
 DROP TABLE IF EXISTS clients CASCADE;
 DROP TABLE IF EXISTS locations CASCADE;
+
+-- Création de la table utilisateurs
+CREATE TABLE utilisateurs (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    enabled BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- Création de la table roles
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    utilisateur_id INT NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
+);
 
 -- Création de la table clients
 CREATE TABLE clients (

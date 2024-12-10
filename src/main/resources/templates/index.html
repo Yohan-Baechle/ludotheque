@@ -19,12 +19,28 @@
 				<li class="menu-item"><a href="/exemplaires">Exemplaires</a></li>
 				<li class="menu-item"><a href="/locations">Locations</a></li>
 			</ul>
+			<div class="navbar-actions">
+				<!-- Bouton Connexion -->
+				<a th:if="${#authentication.principal == 'anonymousUser'}"
+					href="/login" class="btn-login">Connexion</a>
+
+				<!-- Bouton Déconnexion -->
+				<a th:if="${#authentication.principal != 'anonymousUser'}" href="#"
+					class="btn-logout"
+					onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+					Déconnexion </a>
+				<form id="logoutForm" th:action="@{/logout}" method="post"
+					style="display: none;">
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+				</form>
+			</div>
+
+
 		</nav>
 	</header>
 	<main>
 		<!-- Espace pour le contenu dynamique -->
 		<div th:replace="~{${body}}"></div>
-
 	</main>
 	<footer class="footer">
 		<div class="container">
